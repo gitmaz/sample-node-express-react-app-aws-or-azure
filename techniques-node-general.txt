@@ -1,0 +1,92 @@
+@express
+ installing:
+ mkdir my-express-app
+ cd my-express-app
+ npm init -y
+
+ jwt:
+ npm install express jsonwebtoken
+
+ run test:
+ npx mocha test/userModel.test.js
+ npx mocha test/userController.test.js
+
+ run app.js
+ node app.js
+
+
+@log errors on an app (your-app.js):
+node your-app.js >> log.txt
+
+@specifying log file from within app:
+
+const fs = require('fs');
+const logStream = fs.createWriteStream('custom.log', { flags: 'a' });
+
+console.log = function(data) {
+  logStream.write(new Date() + ': ' + data + '\n');
+};
+
+console.log('This log message will be saved to custom.log');
+
+
+@writing logs in productiion to cloudwatch:
+
+const AWS = require('aws-sdk');
+const cloudwatchlogs = new AWS.CloudWatchLogs();
+
+const params = {
+  logGroupName: 'your-log-group-name',
+  logStreamName: 'your-log-stream-name',
+  logEvents: [
+    {
+      message: 'Your log message',
+      timestamp: new Date().getTime(),
+    },
+  ],
+};
+
+cloudwatchlogs.putLogEvents(params, function(err, data) {
+  if (err) console.log(err, err.stack);
+  else console.log('Successfully sent log to CloudWatch Logs');
+});
+
+
+@switch between local log and aws cloudwatch log or azure applicationinsights  when in local vs production
+
+# For Winston
+npm install winston
+
+# AWS SDK for CloudWatch Logs
+npm install aws-sdk
+
+# Azure Application Insight
+npm install applicationinsights
+npm install winston applicationinsights
+
+
+@install jwt
+npm install jsonwebtoken
+
+
+@node unit tests
+npm install mocha chai
+ run tests:
+   npx mocha test/userController.test.js
+
+
+@use mysql:
+npm install mysql2
+
+@use ORM - sequelize
+
+@queue handling
+npm install bull
+
+node jobWorker.js
+
+@node mailer
+npm install nodemailer
+
+@test with mocks
+ npm install mocha chai sinon
