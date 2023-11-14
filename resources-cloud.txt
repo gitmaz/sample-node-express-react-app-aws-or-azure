@@ -1,0 +1,8 @@
+@aws training
+https://explore.skillbuilder.aws/learn
+
+-Elastic beanstalk starter
+https://explore.skillbuilder.aws/learn/course/17354/play/
+
+-Elastic beanstalk security
+https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/security.html

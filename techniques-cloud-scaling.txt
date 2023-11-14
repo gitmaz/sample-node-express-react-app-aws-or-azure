@@ -39,7 +39,6 @@ If you specifically need to use Kubernetes with Node.js, then setting up a Kuber
 User
 How do you scale out when demand increases using elastic beanstalk?
 
-ChatGPT
 Scaling out in Amazon Elastic Beanstalk is a process that allows you to handle increased demand for your application by adding more instances of your application's environment. Elastic Beanstalk offers two types of scaling:
 
 Horizontal Scaling:
