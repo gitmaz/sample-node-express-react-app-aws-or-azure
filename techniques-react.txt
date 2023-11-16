@@ -1,6 +1,6 @@
 What is popular unit testing library for react? And can you give me an example code?
 
-ChatGPT
+
 One of the most popular unit testing libraries for React is Jest, which is often used in combination with Enzyme or React Testing Library. Jest is a test runner and assertion library, while Enzyme and React Testing Library are libraries for rendering and testing React components.
 
 Here's an example of how to write unit tests for a React component using Jest and Enzyme:

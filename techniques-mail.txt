@@ -1,6 +1,6 @@
 What is popular mail service I can use in a node.js app?
 
-ChatGPT
+
 One of the popular services for sending email from a Node.js application is "Nodemailer." Nodemailer is a flexible and widely-used library that simplifies sending email using various email providers or custom SMTP servers. It supports features like sending plain text and HTML emails, attachments, inline images, and more.
 
 Here's how to use Nodemailer to send an email in a Node.js application:

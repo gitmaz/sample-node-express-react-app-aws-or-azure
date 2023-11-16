@@ -1,0 +1,44 @@
+I have an IAM  user mazi and have downloded pem and have its ACCESS key and secret access key. I want to upload a frontend.zip file to my ec2 instance with public ip of 54.79.206.109, I am using windows and I have c:\worklab\pair\accommo-v1.pem and  c:\worklab\pair\frontend.zip  . How can I copy this xyz.zip to my server into folder /var/www/html/ ?
+
+To copy a file from your local machine (Windows) to your EC2 instance using the AWS CLI, you can use the aws s3 command along with the aws s3 cp subcommand. Here are the steps:
+
+Install AWS CLI:
+If you haven't already installed the AWS CLI, you can download it from here.
+
+Configure AWS CLI:
+Open a command prompt and run the following command to configure the AWS CLI with your IAM user credentials:
+
+bash
+Copy code
+aws configure
+It will prompt you to enter your AWS Access Key ID, Secret Access Key, default region, and output format.
+
+Copy the File to S3 Bucket:
+Since the aws s3 cp command is used to copy files to and from Amazon S3, you need to upload your local file to an S3 bucket first. Create a new S3 bucket or use an existing one.
+
+bash
+Copy code
+aws s3 cp C:\worklab\pair\frontend.zip s3://your-s3-bucket-name/
+Replace your-s3-bucket-name with the actual name of your S3 bucket.
+
+Copy the File from S3 to EC2 Instance:
+Now, SSH into your EC2 instance and run the following command to copy the file from S3 to your EC2 instance:
+
+bash
+Copy code
+aws s3 cp s3://your-s3-bucket-name/frontend.zip /var/www/html/
+Replace your-s3-bucket-name with the actual name of your S3 bucket.
+
+Alternatively, you can use scp to copy the file directly from your local machine to the EC2 instance. Here is an example:
+
+bash
+Copy code
+scp -i C:\worklab\pair\accommo-v1.pem C:\worklab\pair\frontend.zip ec2-user@54.79.206.109:/var/www/html/
+Replace accommo-v1.pem with your actual private key file, 54.79.206.109 with your EC2 instance's public IP, and adjust the file paths accordingly.
+
+This assumes that your EC2 instance has the necessary permissions to access the S3 bucket. If not, make sure to configure the IAM role or user associated with your EC2 instance with the appropriate S3 permissions.
+
+
+
+
+
