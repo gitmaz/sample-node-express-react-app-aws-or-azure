@@ -1,0 +1,51 @@
+User
+how to install composer on amazon linux?
+
+To install Composer on Amazon Linux, you can use the following steps. Amazon Linux is RPM-based, so you can use the package manager yum to install Composer.
+
+Update Your System:
+Ensure your system is up-to-date by running the following command:
+
+bash
+Copy code
+sudo yum update
+Install PHP and Composer Dependencies:
+Install PHP and some dependencies required by Composer:
+
+bash
+Copy code
+sudo yum install php-cli php-json php-mbstring unzip
+Download and Install Composer:
+Download and install Composer globally:
+
+bash
+Copy code
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+Run the following command to verify the installation script:
+
+bash
+Copy code
+php -r "if (hash_file('SHA384', 'composer-setup.php') === '48e3236262b34d30969dca3c37281b3b4bbe3221bda826ac6a9a62d6444cdb0dcd0615698a5cbe587c3f0fe57a54d8f5') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+Install Composer:
+
+bash
+Copy code
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+Remove the setup file:
+
+bash
+Copy code
+php -r "unlink('composer-setup.php');"
+Verify Composer Installation:
+To check if Composer is installed successfully, run:
+
+bash
+Copy code
+composer --version
+This should display the Composer version information.
+
+Now Composer should be installed on your Amazon Linux instance. You can use Composer to manage PHP dependencies for your projects. If you encounter any issues, ensure that you have PHP and the required extensions installed, and that your system is up-to-date.
+
+
+
+

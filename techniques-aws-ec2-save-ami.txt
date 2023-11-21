@@ -1,0 +1,9 @@
+aws ec2 create-image --instance-id i-0d7c42f3b7d90cd81 --name "Accommo server v2.3" --description "A vue and php server for accommo nd php server for accommo app" --no-reboot
+
+result will be:
+{
+    "ImageId": "ami-06e25689aa9b28a0c"
+}
+
+
+aws ec2 deregister-image --image-id ami-0e755bc4b3092783b
