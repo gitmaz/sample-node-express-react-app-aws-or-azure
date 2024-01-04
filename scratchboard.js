@@ -215,3 +215,116 @@ exports.handler = async (event, context) => {
     body: JSON.stringify({ message: 'Hello, CDK! This is your simple GET endpoint.' }),
   };
 };
+
+#sqs and lambda stack for a mail sender used in ebs
+const cdk = require('aws-cdk-lib');
+const sqs = require('aws-cdk-lib/aws-sqs');
+const lambda = require('aws-cdk-lib/aws-lambda');
+const events = require('aws-cdk-lib/aws-events');
+const targets = require('aws-cdk-lib/aws-events-targets');
+
+class SqsLambdaStack extends cdk.Stack {
+  constructor(scope, id, props) {
+    super(scope, id, props);
+
+    // SQS Queue
+    const queue = new sqs.Queue(this, 'MyQueue', {
+      visibilityTimeout: cdk.Duration.seconds(300),
+    });
+
+    // Lambda Function
+    const handler = new lambda.Function(this, 'MyLambdaFunction', {
+      runtime: lambda.Runtime.NODEJS_14_X,
+      handler: 'index.handler',
+      code: lambda.Code.fromAsset('lambda-code'), // Path to your Lambda function code
+      environment: {
+        SQS_QUEUE_URL: queue.queueUrl,
+      },
+    });
+
+    // Grant permissions for Lambda to receive messages from SQS
+    queue.grantConsumeMessages(handler);
+
+    // Schedule the Lambda function to run every week on Sundays
+    new events.Rule(this, 'WeeklySchedule', {
+      schedule: events.Schedule.cron({ minute: '0', hour: '0', day: 'SUN' }),
+      targets: [new targets.LambdaFunction(handler)],
+    });
+  }
+}
+
+module.exports = { SqsLambdaStack };
+
+#lambda function code
+const AWS = require('aws-sdk');
+
+exports.handler = async (event, context) => {
+  const sqs = new AWS.SQS();
+  const queueUrl = process.env.SQS_QUEUE_URL;
+
+  // Logic to send emails based on messages retrieved from SQS
+  // This could involve querying the queue for messages, processing them, and sending emails
+
+  console.log('Lambda function executed successfully.');
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: 'Lambda executed successfully.' }),
+  };
+};
+#elastic beanstalk calling mail queue
+
+const cdk = require('aws-cdk-lib');
+const elasticbeanstalk = require('aws-cdk-lib/aws-elasticbeanstalk');
+const sqs = require('aws-cdk-lib/aws-sqs');
+
+class ElasticBeanstalkStack extends cdk.Stack {
+  constructor(scope, id, props) {
+    super(scope, id, props);
+
+    // SQS Queue
+    const queue = sqs.Queue.fromQueueArn(
+      this,
+      'MyQueue',
+      'arn:aws:sqs:your-region:your-account-id:MyQueue'
+    );
+
+    // Elastic Beanstalk Environment
+    const ebEnvironment = new elasticbeanstalk.CfnEnvironment(this, 'MyEBEnvironment', {
+      applicationName: 'MyEBApplication',
+      environmentName: 'MyEBEnvironment',
+      solutionStackName: '64bit Amazon Linux 2 v4.4.5 running Node.js',
+      optionSettings: [
+        {
+          namespace: 'aws:elasticbeanstalk:application:environment',
+          optionName: 'SQS_QUEUE_URL',
+          value: queue.queueUrl,
+        },
+      ],
+    });
+
+    // Elastic Beanstalk Application Version
+    const ebApplicationVersion = new elasticbeanstalk.CfnApplicationVersion(
+      this,
+      'MyEBApplicationVersion',
+      {
+        applicationName: 'MyEBApplication',
+        sourceBundle: {
+          s3Bucket: 'your-s3-bucket-for-application-code',
+          s3Key: 'path/to/your/application-code.zip',
+        },
+      }
+    );
+
+    // Output the Elastic Beanstalk Environment URL
+    new cdk.CfnOutput(this, 'EBEnvironmentURL', {
+      value: `http://${ebEnvironment.attrCname}`,
+      description: 'Elastic Beanstalk Environment URL',
+    });
+  }
+}
+
+module.exports = { ElasticBeanstalkStack };
+
+
+
