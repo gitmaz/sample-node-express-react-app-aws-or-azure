@@ -208,7 +208,7 @@ class ElasticBeanstalkStack extends cdk.Stack {
 
 module.exports = { ElasticBeanstalkStack };
 
-#es6 lambda
+#es6 app hosted by ebs
 exports.handler = async (event, context) => {
   return {
     statusCode: 200,
