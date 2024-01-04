@@ -326,5 +326,118 @@ class ElasticBeanstalkStack extends cdk.Stack {
 
 module.exports = { ElasticBeanstalkStack };
 
+#ecs stack
+
+const cdk = require('aws-cdk-lib');
+const ecs = require('aws-cdk-lib/aws-ecs');
+const sqs = require('aws-cdk-lib/aws-sqs');
+const lambda = require('aws-cdk-lib/aws-lambda');
+const events = require('aws-cdk-lib/aws-events');
+const targets = require('aws-cdk-lib/aws-events-targets');
+
+class EcsLambdaStack extends cdk.Stack {
+  constructor(scope, id, props) {
+    super(scope, id, props);
+
+    // SQS Queue
+    const queue = new sqs.Queue(this, 'MyQueue', {
+      visibilityTimeout: cdk.Duration.seconds(300),
+    });
+
+    // ECS Cluster
+    const cluster = new ecs.Cluster(this, 'MyCluster');
+
+    // ECS Task Definition
+    const taskDefinition = new ecs.FargateTaskDefinition(this, 'MyTaskDefinition');
+
+    // Define your container details here
+    const container = taskDefinition.addContainer('MyContainer', {
+      image: ecs.ContainerImage.fromRegistry('your-docker-image'),
+    });
+
+    // ECS Service
+    const service = new ecs.FargateService(this, 'MyService', {
+      cluster,
+      taskDefinition,
+    });
+
+    // Lambda Function
+    const handler = new lambda.Function(this, 'MyLambdaFunction', {
+      runtime: lambda.Runtime.NODEJS_14_X,
+      handler: 'index.handler',
+      code: lambda.Code.fromAsset('lambda-code'), // Path to your Lambda function code
+      environment: {
+        SQS_QUEUE_URL: queue.queueUrl,
+      },
+    });
+
+    // Grant permissions for Lambda to receive messages from SQS
+    queue.grantConsumeMessages(handler);
+
+    // Schedule the Lambda function to run every week on Sundays
+    new events.Rule(this, 'WeeklySchedule', {
+      schedule: events.Schedule.cron({ minute: '0', hour: '0', day: 'SUN' }),
+      targets: [new targets.LambdaFunction(handler)],
+    });
+  }
+}
+
+module.exports = { EcsLambdaStack };
+
+#lambda for this ecs
+const AWS = require('aws-sdk');
+
+exports.handler = async (event, context) => {
+  const sqs = new AWS.SQS();
+  const queueUrl = process.env.SQS_QUEUE_URL;
+
+  // Logic to send emails based on messages retrieved from SQS
+  // This could involve querying the queue for messages, processing them, and sending emails
+
+  console.log('Lambda function executed successfully.');
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: 'Lambda executed successfully.' }),
+  };
+};
+
+#ecs stack updated
+
+const cdk = require('aws-cdk-lib');
+const ecs = require('aws-cdk-lib/aws-ecs');
+const sqs = require('aws-cdk-lib/aws-sqs');
+
+class EcsStack extends cdk.Stack {
+  constructor(scope, id, props) {
+    super(scope, id, props);
+
+    // SQS Queue
+    const queue = sqs.Queue.fromQueueArn(
+      this,
+      'MyQueue',
+      'arn:aws:sqs:your-region:your-account-id:MyQueue'
+    );
+
+    // ECS Cluster
+    const cluster = new ecs.Cluster(this, 'MyCluster');
+
+    // ECS Task Definition
+    const taskDefinition = new ecs.FargateTaskDefinition(this, 'MyTaskDefinition');
+
+    // Define your container details here
+    const container = taskDefinition.addContainer('MyContainer', {
+      image: ecs.ContainerImage.fromRegistry('your-docker-image'),
+    });
+
+    // ECS Service
+    const service = new ecs.FargateService(this, 'MyService', {
+      cluster,
+      taskDefinition,
+    });
+  }
+}
+
+module.exports = { EcsStack };
 
 
