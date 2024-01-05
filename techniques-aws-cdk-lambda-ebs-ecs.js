@@ -12,6 +12,7 @@ my-cdk-app/
 |-- cdk.json
 |-- package.json
 
+cdk diff
 cdk deploy
 cdk synth
 cdk deploy my-stack (if not in cdk.json)
