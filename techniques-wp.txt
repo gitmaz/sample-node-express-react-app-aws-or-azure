@@ -1,0 +1,76 @@
+@get wp
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+
+(or if it fails:
+curl -k -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+)
+
+
+chmod +x wp-cli.phar
+sudo mv wp-cli.phar /usr/local/bin/wp
+
+@create project:
+# Navigate to the directory where you want to create the project
+cd /path/to/your/projects
+
+# Create a new WordPress project
+wp core download --path=mywordpress
+cd mywordpress
+wp core config --dbname=yourdbname --dbuser=yourdbuser --dbpass=yourdbpassword --dbhost=localhost --dbprefix=wp_
+
+# Install WordPress
+wp core install --url=http://yourprojecturl.com --title=YourProject --admin_user=admin --admin_password=adminpassword --admin_email=admin@example.com
+example:
+wp core install --url=http://127.0.0.1:5000 --title=mywpsamp1 --admin_user=admin --admin_password=admin --admin_email=admin@example.com
+
+@team development:
+
+
+
+@user management and roles:
+Built-in Functions:
+
+Use wp_create_user(), wp_update_user(), and wp_delete_user() for user management.
+Use add_role(), remove_role(), and get_role() for managing roles.
+Plugins:
+
+Plugins like "Members" or "User Role Editor" make it easier to manage roles and capabilities through the WordPress admin interface.
+
+
+4. Composer:
+Using Composer for theme development can be beneficial for managing dependencies and autoloading classes. To set up a WordPress project with Composer:
+
+Create a composer.json file in your theme directory.
+
+json
+Copy code
+{
+    "name": "yourvendor/your-theme",
+    "type": "wordpress-theme",
+    "require": {
+        "php": "^7.0",
+        "composer/installers": "^1.0",
+        "some/dependency": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "YourNamespace\\": "src/"
+        }
+    }
+}
+Install Composer dependencies.
+
+bash
+Copy code
+composer install
+5. Activate Theme:
+Activate your custom theme in the WordPress admin dashboard:
+
+bash
+Copy code
+wp theme activate your-theme
+
+@install wp theme:
+# Install Astra theme
+wp theme install astra --activate
+  use astra starter templates

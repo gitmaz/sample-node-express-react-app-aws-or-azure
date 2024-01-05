@@ -10,14 +10,14 @@ Install Nodemailer:
 Install Nodemailer as a dependency in your Node.js project:
 
 bash
-Copy code
+
 npm install nodemailer
 Use Nodemailer to Send Email:
 
 Here's an example of how to use Nodemailer to send an email using a Gmail SMTP server. You'll need to provide your Gmail email and app password (if you have two-factor authentication enabled):
 
 javascript
-Copy code
+
 const nodemailer = require('nodemailer');
 
 // Create a Nodemailer transporter using your Gmail account

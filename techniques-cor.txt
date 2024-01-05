@@ -7,14 +7,14 @@ Install the cors Package:
 First, you need to install the cors package via npm or yarn:
 
 bash
-Copy code
+
 npm install cors
 Import and Configure cors:
 
 In your Node.js application, import the cors middleware and use it in your Express.js app. Here's an example of how to configure CORS:
 
 javascript
-Copy code
+
 const express = require('express');
 const cors = require('cors');
 

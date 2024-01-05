@@ -9,7 +9,7 @@ Content Security Policy (CSP):
 
 Implement a strong Content Security Policy that restricts which sources are allowed to execute scripts on your web page. This helps prevent the execution of injected scripts. Include CSP headers in your responses:
 javascript
-Copy code
+
 const helmet = require('helmet');
 
 app.use(
@@ -26,13 +26,13 @@ Escape user-generated content before rendering it in the browser. Use template e
 Example using EJS:
 
 javascript
-Copy code
+
 <%- userGeneratedContent %>
 Secure Headers:
 
 Use security-focused middleware like Helmet to set various HTTP headers to enhance security, including the "X-XSS-Protection" header.
 javascript
-Copy code
+
 const helmet = require('helmet');
 app.use(helmet());
 Use Libraries with Built-In XSS Protection:

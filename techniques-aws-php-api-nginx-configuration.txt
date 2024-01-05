@@ -11,7 +11,7 @@ Suspend Worker Instances (for Worker Environments):
 
 If your Elastic Beanstalk environment is a worker environment (e.g., a background task processing environment), you can suspend the worker instances to temporarily stop the processing of tasks. This won't stop the entire environment but may reduce resource consumption.
 bash
-Copy code
+
 eb scale 0
 The eb scale command can be used to scale the number of instances in the environment. Setting the count to 0 effectively suspends the instances.
 
@@ -22,7 +22,7 @@ Adjust the Environment's Auto Scaling Policy:
 
 You can modify the Auto Scaling policy associated with your Elastic Beanstalk environment to have fewer instances during periods of low demand and more instances during peak times.
 bash
-Copy code
+
 eb scale 1
 This scales the number of instances back to 1.
 
@@ -44,7 +44,7 @@ Save Environment Configuration:
 Use the AWS CLI to describe your Elastic Beanstalk environment and save the configuration to a file:
 
 bash
-Copy code
+
 aws elasticbeanstalk describe-configuration-settings \
   --application-name YourApplicationName \
   --environment-name YourEnvironmentName \
@@ -55,7 +55,7 @@ Terminate the Environment:
 Terminate the Elastic Beanstalk environment:
 
 bash
-Copy code
+
 aws elasticbeanstalk terminate-environment --environment-name YourEnvironmentName
 Replace YourEnvironmentName with your actual environment name.
 
@@ -63,7 +63,7 @@ Recreate the Environment:
 Recreate the Elastic Beanstalk environment using the saved configuration:
 
 bash
-Copy code
+
 aws elasticbeanstalk create-environment \
   --application-name YourApplicationName \
   --environment-name YourNewEnvironmentName \
@@ -117,7 +117,7 @@ Using AWS CLI:
 If you prefer the command line, you can also create an instance profile using the AWS CLI:
 
 bash
-Copy code
+
 aws iam create-role \
   --role-name YourRoleName \
   --assume-role-policy-document file://trust-policy.json
@@ -126,7 +126,7 @@ Replace YourRoleName with the desired name for your role.
 Create a JSON file (e.g., trust-policy.json) with the trust policy. Here's a basic example:
 
 json
-Copy code
+
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -140,7 +140,7 @@ Copy code
   ]
 }
 bash
-Copy code
+
 aws iam attach-role-policy \
   --role-name YourRoleName \
   --policy-arn arn:aws:iam::aws:policy/YourPolicyName
@@ -222,7 +222,7 @@ Click through the remaining steps to review and create the user. On the final pa
 On your local machine, run the following command to configure the AWS CLI with the access key ID and secret access key:
 
 bash
-Copy code
+
 aws configure
 Enter the access key ID, secret access key, default region name, and default output format when prompted.
 Verify AWS CLI Configuration:
@@ -230,7 +230,7 @@ Verify AWS CLI Configuration:
 After configuring the AWS CLI, you can verify that it is working by running a simple command. For example:
 
 bash
-Copy code
+
 aws ec2 describe-instances
 If configured correctly, this command should return information about your EC2 instances.
 Now, you should be able to use the AWS CLI on your local machine, and it will authenticate using the IAM user credentials you configured. Keep your access key ID and secret access key secure, and only provide the necessary permissions to the IAM user for security best practices.
@@ -287,7 +287,7 @@ Use SSH to Connect:
 Use the ssh command to connect to your EC2 instance. The syntax is as follows:
 
 bash
-Copy code
+
 ssh -i /path/to/your/private-key.pem ec2-user@your-instance-ip
 Replace /path/to/your/private-key.pem with the path to your private key file.
 Replace ec2-user with the appropriate user for your EC2 instance (this may vary depending on the AMI).
@@ -295,7 +295,7 @@ Replace your-instance-ip with the public IP address or public DNS of your EC2 in
 Example:
 
 bash
-Copy code
+
 ssh -i ~/Downloads/your-key-pair.pem ec2-user@ec2-123-456-789-012.compute-1.amazonaws.com
 Login to the EC2 Instance:
 
@@ -322,14 +322,14 @@ your-instance-ip: This is the public IP address or public DNS of your EC2 instan
 Here is an example with placeholders replaced:
 
 bash
-Copy code
+
 ssh -i /path/to/your/private-key.pem ec2-user@your-instance-ip
 Replace /path/to/your/private-key.pem with the actual path to your private key file on your local machine, and replace your-instance-ip with the public IP address or public DNS of your EC2 instance.
 
 It's important to have the correct permissions on your private key file. You can use the chmod command to set the appropriate permissions:
 
 bash
-Copy code
+
 chmod 400 /path/to/your/private-key.pem
 After setting the correct permissions, you should be able to use the SSH command to connect to your EC2 instance from your local machine.
 
@@ -339,7 +339,7 @@ for example my file is in c:\worklab\downloads
 If your private key file is located at C:\worklab\downloads\your-private-key.pem, and you are using the default Amazon Linux user (ec2-user), the SSH command would look like this:
 
 bash
-Copy code
+
 ssh -i "C:\worklab\downloads\your-private-key.pem" ec2-user@your-instance-ip
 Make sure to replace your-instance-ip with the actual public IP address or public DNS of your EC2 instance.
 
@@ -350,7 +350,7 @@ Additionally, you may need to use the appropriate SSH client on your Windows mac
 Ensure that the private key file has the correct permissions. On Windows, file permissions are less restrictive, but it's still a good practice to limit access to the private key:
 
 bash
-Copy code
+
 icacls "C:\worklab\downloads\your-private-key.pem" /inheritance:r
 icacls "C:\worklab\downloads\your-private-key.pem" /grant:r "%USERNAME%:R"
 These commands remove inherited permissions and grant read-only access to the file for the current user.
@@ -365,7 +365,7 @@ No, the chmod command is typically used on Unix-like operating systems (such as 
 However, in a Windows environment, you might need to adjust the permissions using the appropriate Windows commands or through the Windows graphical interface. Here's an example of how you can adjust permissions using the icacls command:
 
 bash
-Copy code
+
 icacls "C:\worklab\downloads\your-private-key.pem" /inheritance:r
 icacls "C:\worklab\downloads\your-private-key.pem" /grant:r "%USERNAME%:R"
 These commands do the following:
@@ -396,7 +396,7 @@ Verify Key Permissions:
 Confirm that the private key file has the correct permissions. In your case, you are using Windows, so make sure that the file is not accessible by other users:
 
 bash
-Copy code
+
 icacls "C:\worklab\pairs\accommo-v1.pem" /inheritance:r
 icacls "C:\worklab\pairs\accommo-v1.pem" /grant:r "%USERNAME%:R"
 Check the Key Pair Name:
@@ -406,7 +406,7 @@ Check EC2 Instance User:
 
 Depending on the Linux distribution used by your EC2 instance, the default user might be different. For Amazon Linux, it's typically ec2-user. For other distributions, it could be ubuntu, centos, or another user. Ensure you are using the correct username in your SSH command.
 bash
-Copy code
+
 ssh -i "C:\worklab\pairs\accommo-v1.pem" ubuntu@ec2-54-79-206-109.ap-southeast-2.compute.amazonaws.com
 Review Security Group Rules:
 
@@ -471,7 +471,7 @@ Check Security Group Rules:
 Use the following AWS CLI command to describe the security groups associated with your EC2 instance:
 
 bash
-Copy code
+
 aws ec2 describe-instances --instance-ids YourInstanceId --query 'Reservations[*].Instances[*].[SecurityGroups[*].GroupId]' --output text
 Replace YourInstanceId with the actual ID of your EC2 instance.
 The command provides the Security Group IDs associated with your EC2 instance.
@@ -481,7 +481,7 @@ Describe Security Group Inbound Rules:
 Use the following AWS CLI command to describe the inbound rules of a specific security group:
 
 bash
-Copy code
+
 aws ec2 describe-security-groups --group-ids YourSecurityGroupId
 Replace YourSecurityGroupId with the actual Security Group ID obtained from the previous command.
 Look for the "Ingress" rules section in the output. Ensure that there is a rule allowing incoming SSH traffic on port 22.
@@ -489,7 +489,7 @@ Look for the "Ingress" rules section in the output. Ensure that there is a rule 
 Example output snippet:
 
 json
-Copy code
+
 "IpPermissions": [
   {
     "IpProtocol": "tcp",
@@ -509,7 +509,7 @@ Check Network ACL (if applicable):
 If you are using a Virtual Private Cloud (VPC) with network ACLs, you may need to check the rules there as well.
 
 bash
-Copy code
+
 aws ec2 describe-network-acls --query 'NetworkAcls[*].[Associations[*].SubnetId,Entries[*].[CidrBlock,PortRange,RuleAction,RuleNumber]]' --output table
 This command provides information about network ACL rules. Check if there are rules blocking SSH traffic on port 22.
 
@@ -531,7 +531,7 @@ Upload Private Key:
 
 Use the CloudShell upload feature to transfer your private key file to the CloudShell environment.
 bash
-Copy code
+
 # Replace 'your-local-key.pem' with the actual name of your private key file
 aws s3 cp your-local-key.pem s3://your-bucket-name/your-key-folder/
 This example assumes you have an S3 bucket where you can upload the key. If you don't have an S3 bucket, you might need to use an alternative method like scp or curl to transfer the file.
@@ -543,20 +543,20 @@ Download Private Key:
 
 Use aws s3 cp to download the private key from the S3 bucket to the CloudShell environment.
 bash
-Copy code
+
 # Replace 'your-local-key.pem' and 'your-bucket-name/your-key-folder/' with your actual key file and S3 bucket details
 aws s3 cp s3://your-bucket-name/your-key-folder/your-local-key.pem ~/your-local-key.pem
 Set Correct Permissions:
 
 After downloading, set the correct permissions on the private key.
 bash
-Copy code
+
 chmod 400 ~/your-local-key.pem
 SSH with the Key:
 
 Now, you can use the private key for SSH authentication.
 bash
-Copy code
+
 # Replace 'your-instance-ip' and 'ec2-user' with your EC2 instance details
 ssh -i ~/your-local-key.pem ec2-user@your-instance-ip
 Make sure to replace placeholder values with your actual details.
@@ -677,7 +677,7 @@ seems it does not have ingress:
 It looks like the security group associated with your Elastic Beanstalk environment (awseb-e-kxacydmscp-stack-AWSEBSecurityGroup-17VX5S4K5WYH0) has ingress rules for both port 80 (HTTP) and port 22 (SSH). Here's the relevant part of the provided information:
 
 json
-Copy code
+
 "SecurityGroups": [
     {
         "Description": "SecurityGroup for ElasticBeanstalk environment.",
@@ -738,7 +738,7 @@ In AWS CloudShell, you can use the scp (secure copy) command to copy files secur
 
 Upload File to EC2 Instance:
 bash
-Copy code
+
 # Replace 'your-local-file.txt' with the path to the file on your local machine
 # Replace 'ec2-user' and 'your-instance-ip' with your EC2 instance details
 # Replace 'your-key.pem' with the name of your private key file
@@ -754,7 +754,7 @@ Download File from EC2 Instance:
 If you want to download a file from your EC2 instance to your local machine, you can use scp in the reverse direction:
 
 bash
-Copy code
+
 # Replace 'ec2-user' and 'your-instance-ip' with your EC2 instance details
 # Replace 'your-key.pem' with the name of your private key file
 
@@ -772,7 +772,7 @@ In AWS CloudShell, you can use scp to copy files between your local machine and 
 
 Upload File to CloudShell:
 bash
-Copy code
+
 # Replace 'your-local-file.txt' with the path to the file on your local machine
 # Replace 'your-cloudshell-instance' with the actual CloudShell instance ID
 # Replace 'your-key.pem' with the name of your private key file
@@ -784,7 +784,7 @@ Download File from CloudShell:
 If you want to download a file from CloudShell to your local machine, you can use scp in the reverse direction:
 
 bash
-Copy code
+
 # Replace 'your-cloudshell-instance' with the actual CloudShell instance ID
 # Replace 'your-key.pem' with the name of your private key file
 
@@ -812,7 +812,7 @@ Verify Installation:
 Open a Command Prompt or PowerShell window and type the following command to verify the installation:
 
 bash
-Copy code
+
 aws --version
 You should see the installed version of the AWS CLI.
 
@@ -822,21 +822,21 @@ Homebrew:
 If you have Homebrew installed, you can install the AWS CLI by running the following command:
 
 bash
-Copy code
+
 brew install awscli
 Pip:
 
 Alternatively, you can use pip to install the AWS CLI:
 
 bash
-Copy code
+
 pip install awscli
 Verify Installation:
 
 Open a terminal and type the following command to verify the installation:
 
 bash
-Copy code
+
 aws --version
 You should see the installed version of the AWS CLI.
 
@@ -846,27 +846,27 @@ Package Manager:
 Use your system's package manager to install the AWS CLI. For example, on Ubuntu, you can use:
 
 bash
-Copy code
+
 sudo apt-get update
 sudo apt-get install awscli
 On CentOS, you can use:
 
 bash
-Copy code
+
 sudo yum install aws-cli
 Pip:
 
 Alternatively, you can use pip to install the AWS CLI:
 
 bash
-Copy code
+
 pip install awscli --upgrade --user
 Verify Installation:
 
 Open a terminal and type the following command to verify the installation:
 
 bash
-Copy code
+
 aws --version
 You should see the installed version of the AWS CLI.
 
@@ -874,7 +874,7 @@ Configuration:
 After installing the AWS CLI, you'll need to configure it with your AWS credentials. Run the following command and follow the prompts:
 
 bash
-Copy code
+
 aws configure
 Enter your AWS Access Key ID, Secret Access Key, default region, and default output format.
 
@@ -1022,7 +1022,7 @@ When choosing a default output format, consider your use case. If you are script
 After setting the default output format, you can still override it for a specific command by using the --output option followed by the desired format. For example:
 
 bash
-Copy code
+
 aws ec2 describe-instances --output table
 This command overrides the default output format for the specific describe-instances command and displays the output in a table format.
 
@@ -1038,7 +1038,7 @@ When specifying the AWS region for the AWS CLI, you should use the region code, 
 Here's how you can set your region using the aws configure command:
 
 bash
-Copy code
+
 aws configure
 When prompted for the Default region name, enter ap-southeast-2. This sets your default region for the AWS CLI.
 
@@ -1047,13 +1047,13 @@ Alternatively, you can manually edit the AWS CLI configuration file, typically l
 Example configuration file content:
 
 ini
-Copy code
+
 [default]
 region = ap-southeast-2
 After setting the region, you should be able to run AWS CLI commands in the specified region without encountering the region format error.
 
 bash
-Copy code
+
 aws ec2 describe-instances
 Make sure to replace yourusername with your actual username in the file path.
 
@@ -1239,7 +1239,7 @@ The issue with the 404 Not Found error and the file not found error when accessi
 Try updating the permissions of your index.php file to allow the web server user to read it. Assuming the web server user is webapp:
 
 bash
-Copy code
+
 sudo chown webapp:webapp /var/www/html/index.php
 sudo chmod 644 /var/www/html/index.php
 This will change the ownership of the file to the webapp user and group and set the file permissions to 644, allowing read access to the owner and read access to the group.
@@ -1260,7 +1260,7 @@ So, setting the permissions to 644 (read for owner, read for group, and read for
 Here's a recap:
 
 bash
-Copy code
+
 sudo chown webapp:webapp /var/www/html/index.php
 sudo chmod 644 /var/www/html/index.php
 After making these changes, try accessing your Elastic Beanstalk application again. If the issue persists, you might want to check the Elastic Beanstalk logs or the web server error logs for any additional details on the problem.
@@ -1329,7 +1329,7 @@ seems that the zipfile from my webapp when extracted, has created extra root fol
 You can use the cp command along with the -r (recursive) option to copy the contents of the backend folder to /var/www/html/, and then you can use the rm command to remove the backend folder. Here's the step-by-step process:
 
 bash
-Copy code
+
 # Copy contents of backend folder to /var/www/html/
 sudo cp -r /var/www/html/backend/. /var/www/html/
 
@@ -1362,14 +1362,14 @@ Yes, it appears that the ownership of files and directories such as composer.jso
 To change the ownership of these files and directories to the webapp user and group, you can use the chown command. For example:
 
 bash
-Copy code
+
 sudo chown -R webapp:webapp composer.json composer.lock Dockerfile public serve.bat serve.sh src tests vendor
 This command recursively changes the ownership of the specified files and directories to the webapp user and group. Adjust the list of files and directories based on your specific needs.
 
 After changing the ownership, you may also want to ensure that files and directories have the appropriate permissions for your web application. For most files, read permissions (644) and for directories, execute permissions (755) are common:
 
 bash
-Copy code
+
 # For files
 sudo chmod 644 composer.json composer.lock Dockerfile serve.bat serve.sh
 
@@ -1383,7 +1383,7 @@ how can I configure nginx to use /public/index.php when a url path is like http:
 To configure Nginx to use /public/index.php for URLs with a path starting with /api/, you'll need to define a location block in your Nginx configuration. Here's an example configuration:
 
 nginx
-Copy code
+
 server {
     listen 80;
     server_name your-domain.com;  # Replace with your actual domain
@@ -1422,7 +1422,7 @@ Set the root directive to the path where your application is located.
 After making these changes, remember to restart Nginx for the configuration to take effect:
 
 bash
-Copy code
+
 sudo service nginx restart
 This configuration assumes that your PHP-FPM socket file is located at /var/run/php/php7.4-fpm.sock. Update it according to your PHP version.
 
@@ -1434,7 +1434,7 @@ for number 3: my actual domain is :http://accommo-env.eba-7h3qb4f3.ap-southeast-
 If your actual domain is http://accommo-env.eba-7h3qb4f3.ap-southeast-2.elasticbeanstalk.com, you can update the server_name directive accordingly in your Nginx configuration. Here's the modified configuration:
 
 nginx
-Copy code
+
 server {
     listen 80;
     server_name accomo-env.eba-7h3qb4f3.ap-southeast-2.elasticbeanstalk.com;
@@ -1460,7 +1460,7 @@ Make sure to replace accomo-env.eba-7h3qb4f3.ap-southeast-2.elasticbeanstalk.com
 After updating the configuration, restart Nginx for the changes to take effect:
 
 bash
-Copy code
+
 sudo service nginx restart
 This should configure Nginx to handle requests to http://accommo-env.eba-7h3qb4f3.ap-southeast-2.elasticbeanstalk.com/api/ and route them to /public/index.php. Adjust other parts of the configuration as needed based on your application setup.
 
@@ -1472,7 +1472,7 @@ The Nginx configuration block should be placed in a specific Nginx configuration
 Open the Nginx default configuration file for editing. This file is often named something like default, default.conf, or nginx.conf.
 
 bash
-Copy code
+
 sudo nano /etc/nginx/sites-available/default
 If you're using a specific configuration file for your site, open that file instead.
 
@@ -1481,7 +1481,7 @@ Inside the configuration file, locate the server block. This block typically sta
 Insert the provided configuration block within the server block. Ensure that the location blocks are properly nested.
 
 nginx
-Copy code
+
 server {
     listen 80;
     server_name accomo-env.eba-7h3qb4f3.ap-southeast-2.elasticbeanstalk.com;
@@ -1507,7 +1507,7 @@ Save the file and exit the text editor.
 Restart Nginx to apply the changes.
 
 bash
-Copy code
+
 sudo service nginx restart
 Make sure to replace the domain name in the server_name directive with your actual Elastic Beanstalk domain. Additionally, verify the paths and PHP version in the configuration block based on your server setup.
 
@@ -1527,14 +1527,14 @@ Here's a general approach:
 Open the main Nginx configuration file for editing. This is typically nginx.conf or default.conf.
 
 bash
-Copy code
+
 sudo nano /etc/nginx/nginx.conf
 If you are not sure about the main configuration file, check your Nginx setup or consult your system's documentation.
 
 Inside the http block, you can add the server block directly.
 
 nginx
-Copy code
+
 http {
     # Other configurations...
 
@@ -1564,7 +1564,7 @@ Save the file and exit the text editor.
 Restart Nginx to apply the changes.
 
 bash
-Copy code
+
 sudo service nginx restart
 Remember to replace the domain name in the server_name directive with your actual Elastic Beanstalk domain. Additionally, verify the paths and PHP version in the configuration block based on your server setup.
 
@@ -1580,7 +1580,7 @@ However, if you have multiple server blocks and want to specify which one should
 Here's how you can modify the server block in your existing http block:
 
 nginx
-Copy code
+
 http {
     # Other configurations...
 
@@ -1612,7 +1612,7 @@ In this case, the server_name _; line is used to match requests that don't match
 Make sure to adjust the other server blocks accordingly, and restart Nginx after making changes:
 
 bash
-Copy code
+
 sudo service nginx restart
 User
 In nano bottom toolbar it is written M-6 stands for copy, how can I do copy there?
@@ -1685,7 +1685,7 @@ Open a command prompt or PowerShell on your local Windows PC and navigate to the
 Use the following scp command:
 
 bash
-Copy code
+
 scp -i path/to/your/private-key.pem ec2-user@your-ec2-instance-ip:/etc/nginx/nginx.conf .
 Replace the following placeholders:
 
@@ -1696,7 +1696,7 @@ This command will copy the nginx.conf file from your EC2 instance to the current
 Note: If you're using PowerShell, you might need to use the full path to the private key and escape certain characters. For example:
 
 powershell
-Copy code
+
 scp -i "C:\path\to\your\private-key.pem" ec2-user@your-ec2-instance-ip:/etc/nginx/nginx.conf .
 After running the command, you should see the nginx.conf file in the local directory where you executed the scp command.
 
@@ -1711,28 +1711,28 @@ When you encounter an error while restarting the Nginx service on your EC2 insta
 Check the Nginx configuration for syntax errors:
 
 bash
-Copy code
+
 sudo nginx -t
 This command checks the syntax of your Nginx configuration files. If there's an error, it will be displayed, and you'll need to correct it.
 
 View the detailed status of the Nginx service:
 
 bash
-Copy code
+
 systemctl status nginx.service
 This command will show the detailed status of the Nginx service, including any error messages or reasons for failure.
 
 Check the Nginx error log for additional information:
 
 bash
-Copy code
+
 sudo tail -n 50 /var/log/nginx/error.log
 This command displays the last 50 lines of the Nginx error log. You can adjust the number to view more or fewer lines.
 
 Inspect the system logs for any related messages:
 
 bash
-Copy code
+
 journalctl -xeu nginx.service
 This command shows the system journal logs related to the Nginx service, providing additional information about the failure.
 
@@ -1753,7 +1753,7 @@ Create the Missing File:
 You can create an empty "fastcgi-php.conf" file in the specified location. Run the following command:
 
 bash
-Copy code
+
 sudo touch /etc/nginx/snippets/fastcgi-php.conf
 This command creates an empty file if it doesn't exist.
 
@@ -1761,12 +1761,12 @@ Update Nginx Configuration:
 After creating the missing file, you need to make sure that your Nginx configuration references it correctly. Open the Nginx configuration file:
 
 bash
-Copy code
+
 sudo nano /etc/nginx/nginx.conf
 Look for a line that includes "fastcgi-php.conf" and ensure it looks like the following:
 
 nginx
-Copy code
+
 include snippets/fastcgi-php.conf;
 Save the changes and exit the text editor.
 
@@ -1774,12 +1774,12 @@ Test Nginx Configuration Again:
 Run the Nginx configuration test to ensure that the syntax is correct:
 
 bash
-Copy code
+
 sudo nginx -t
 If the configuration test is successful, restart Nginx:
 
 bash
-Copy code
+
 sudo service nginx restart
 By creating the missing "fastcgi-php.conf" file and ensuring that the configuration references it correctly, you should be able to resolve the issue and restart Nginx successfully.
 
@@ -1796,13 +1796,13 @@ Edit Nginx Configuration:
 Open your Nginx configuration file for editing:
 
 bash
-Copy code
+
 sudo nano /etc/nginx/nginx.conf
 Locate and Adjust Settings:
 Look for the types_hash_max_size and types_hash_bucket_size directives. If they are not present, you can add them in the http block. If they are already there, increase their values:
 
 nginx
-Copy code
+
 http {
     # Existing configurations...
 
@@ -1817,7 +1817,7 @@ Save Changes and Restart Nginx:
 Save the changes to the configuration file and restart Nginx:
 
 bash
-Copy code
+
 sudo service nginx restart
 This should apply the new settings, and the warning should no longer appear.
 
@@ -1836,12 +1836,12 @@ Open the PHP-FPM pool configuration file and look for the listen directive. This
 Example PHP-FPM pool configuration location (may vary depending on your system):
 
 bash
-Copy code
+
 sudo nano /etc/php/7.4/fpm/pool.d/www.conf
 Look for a line like:
 
 ini
-Copy code
+
 listen = /var/run/php/php7.4-fpm.sock
 Ensure that the listen directive points to the correct socket file.
 
@@ -1851,12 +1851,12 @@ PHP-FPM may use a global configuration for its sockets. Check the main PHP-FPM c
 Example PHP-FPM main configuration location (may vary depending on your system):
 
 bash
-Copy code
+
 sudo nano /etc/php/7.4/fpm/php-fpm.conf
 Look for a line like:
 
 ini
-Copy code
+
 include=/etc/php/7.4/fpm/pool.d/*.conf
 This line includes all configuration files from the pool.d directory. Follow the include directive and check the corresponding pool configuration files for the listen directive.
 
@@ -1864,14 +1864,14 @@ Check PHP-FPM Service Status:
 Ensure that the PHP-FPM service is running. You can check its status to see if there are any issues:
 
 bash
-Copy code
+
 sudo service php7.4-fpm status
 Replace php7.4-fpm with the appropriate service name for your PHP version.
 
 Once you locate the correct socket file, update your Nginx configuration to use the correct path. Update the fastcgi_pass directive in your Nginx configuration file accordingly:
 
 nginx
-Copy code
+
 location ~ \.php$ {
     include snippets/fastcgi-php.conf;
     fastcgi_pass unix:/path/to/your/php7.4-fpm.sock;
@@ -1883,7 +1883,7 @@ Replace /path/to/your/php7.4-fpm.sock with the correct path to your PHP-FPM sock
 After making these changes, restart Nginx:
 
 bash
-Copy code
+
 sudo service nginx restart
 User
 there is no /etc/php/
@@ -1894,7 +1894,7 @@ Debian/Ubuntu:
 On Debian-based systems, the PHP configuration files are often located in the /etc/php/{version}/ directory. For example:
 
 bash
-Copy code
+
 sudo nano /etc/php/7.4/fpm/pool.d/www.conf
 Replace 7.4 with the PHP version you are using.
 
@@ -1902,13 +1902,13 @@ CentOS/RHEL:
 On Red Hat-based systems, PHP configuration files may be found in the /etc/php-fpm.d/ directory:
 
 bash
-Copy code
+
 sudo nano /etc/php-fpm.d/www.conf
 Default PHP Configuration:
 If you still can't find the configuration files, you can use the following command to locate PHP's main configuration file:
 
 bash
-Copy code
+
 php -i | grep php.ini
 This will show you the path to the main php.ini file. You can then look in the same directory for the PHP-FPM pool configuration.
 
@@ -1917,7 +1917,7 @@ Once you locate the correct PHP-FPM pool configuration file, update the listen d
 After making changes, restart PHP-FPM and Nginx:
 
 bash
-Copy code
+
 sudo service php7.4-fpm restart  # Replace with your PHP version
 sudo service nginx restart
 Make sure to replace 7.4 with your actual PHP version. If you're still having trouble, please provide more details about your system, and I'll do my best to assist you further.
@@ -1931,12 +1931,12 @@ Locate PHP-FPM Configuration:
 Amazon Linux usually has PHP-FPM configuration files in the /etc/php-fpm.d/ directory. You can check for the main PHP-FPM pool configuration file:
 
 bash
-Copy code
+
 sudo nano /etc/php-fpm.d/www.conf
 Look for the listen directive inside this file, specifying the socket file path. It may look like:
 
 ini
-Copy code
+
 listen = /var/run/php-fpm/php-fpm.sock
 Make a note of this path.
 
@@ -1944,12 +1944,12 @@ Update Nginx Configuration:
 Now, update your Nginx configuration to use the correct PHP-FPM socket. Open your Nginx configuration file:
 
 bash
-Copy code
+
 sudo nano /etc/nginx/nginx.conf
 Look for the fastcgi_pass directive in your location ~ \.php$ { ... } block. Update it with the correct path:
 
 nginx
-Copy code
+
 location ~ \.php$ {
     include snippets/fastcgi-php.conf;
     fastcgi_pass unix:/var/run/php-fpm/php-fpm.sock;
@@ -1962,7 +1962,7 @@ Restart Services:
 After making these changes, restart PHP-FPM and Nginx:
 
 bash
-Copy code
+
 sudo service php-fpm restart
 sudo service nginx restart
 This should resolve the socket-related issues.
@@ -1975,17 +1975,17 @@ I have this line: listen = /run/php-fpm/www.sock
 Great! If you have found the listen directive in the PHP-FPM pool configuration file and it looks like:
 
 ini
-Copy code
+
 listen = /run/php-fpm/www.sock
 You can update your Nginx configuration accordingly. Open your Nginx configuration file:
 
 bash
-Copy code
+
 sudo nano /etc/nginx/nginx.conf
 Look for the fastcgi_pass directive in the location ~ \.php$ { ... } block and update it with the correct path:
 
 nginx
-Copy code
+
 location ~ \.php$ {
     include snippets/fastcgi-php.conf;
     fastcgi_pass unix:/run/php-fpm/www.sock;
@@ -1997,7 +1997,7 @@ Make sure to replace /run/php-fpm/www.sock with the correct path from your PHP-F
 After updating the Nginx configuration, restart PHP-FPM and Nginx:
 
 bash
-Copy code
+
 sudo service php-fpm restart
 sudo service nginx restart
 These changes should resolve the issue, and Nginx should be able to communicate with PHP-FPM via the correct socket. If you encounter any further issues or have additional questions, feel free to ask!
@@ -2010,7 +2010,7 @@ The SCRIPT_FILENAME parameter in the FastCGI configuration is used to specify th
 In the Nginx configuration block for handling PHP files, you typically set SCRIPT_FILENAME like this:
 
 nginx
-Copy code
+
 location ~ \.php$ {
     include snippets/fastcgi-php.conf;
     fastcgi_pass unix:/run/php-fpm/www.sock;
@@ -2026,7 +2026,7 @@ This combination ensures that PHP-FPM receives the correct full path to the PHP 
 If, for example, your PHP files are in a subdirectory, you may need to adjust the SCRIPT_FILENAME parameter accordingly. For instance, if your PHP files are in a public directory:
 
 nginx
-Copy code
+
 location ~ \.php$ {
     include snippets/fastcgi-php.conf;
     fastcgi_pass unix:/run/php-fpm/www.sock;
@@ -2038,7 +2038,7 @@ Adjust the path in SCRIPT_FILENAME based on the structure of your project.
 After making changes to the Nginx configuration, don't forget to restart both PHP-FPM and Nginx:
 
 bash
-Copy code
+
 sudo service php-fpm restart
 sudo service nginx restart
 User
@@ -2066,7 +2066,7 @@ Make sure you have the correct syntax for the fastcgi_pass directive. The correc
 Here's the corrected section of your Nginx configuration:
 
 nginx
-Copy code
+
 location ~ \.php$ {
     include snippets/fastcgi-php.conf;
     fastcgi_pass unix:/run/php-fpm/www.sock;
@@ -2078,12 +2078,12 @@ Ensure that there is no colon (":") before the unix part. If the issue persists,
 After making changes, run the Nginx configuration test again:
 
 bash
-Copy code
+
 sudo nginx -t
 If the test is successful, restart Nginx:
 
 bash
-Copy code
+
 sudo service nginx restart
 This should resolve the syntax error and allow Nginx to communicate with PHP-FPM using the Unix domain socket.
 
@@ -2097,7 +2097,7 @@ The "Primary script unknown" error typically occurs when Nginx cannot determine 
 In your Nginx configuration, ensure that the SCRIPT_FILENAME parameter is set to the correct path. Here's the relevant part of the configuration:
 
 nginx
-Copy code
+
 location ~ \.php$ {
     include snippets/fastcgi-php.conf;
     fastcgi_pass unix:/run/php-fpm/www.sock;
@@ -2113,7 +2113,7 @@ File Existence: Verify that the PHP file requested by the client actually exists
 If the issue persists, you can add some additional logging to gather more information about the request and FastCGI communication. Update your Nginx configuration as follows:
 
 nginx
-Copy code
+
 location ~ \.php$ {
     include snippets/fastcgi-php.conf;
     fastcgi_pass unix:/run/php-fpm/www.sock;
@@ -2134,7 +2134,7 @@ location ~ \.php$ {
 After making these changes, restart Nginx:
 
 bash
-Copy code
+
 sudo service nginx restart
 Then, check the /var/log/nginx/php_error.log file for any additional error messages that might provide more insights into the "Primary script unknown" issue. The log may reveal the exact paths and variables involved in the problematic request.
 
@@ -2147,18 +2147,18 @@ Install Dependencies:
 Make sure you have some necessary dependencies installed, such as wget and unzip. If they are not installed, you can install them using:
 
 bash
-Copy code
+
 sudo yum install wget unzip
 Download and Install code-server:
 Use wget to download the latest release of code-server from the GitHub repository:
 
 bash
-Copy code
+
 wget https://github.com/cdr/code-server/releases/latest/download/code-server-linux-amd64.tar.gz
 Extract the downloaded archive:
 
 bash
-Copy code
+
 tar -xvzf code-server-linux-amd64.tar.gz
 This will create a directory named code-server-x.x.x (replace x.x.x with the version number).
 
@@ -2166,19 +2166,19 @@ Move code-server to a Usable Location:
 Move the code-server directory to a location where you want to keep the code-server installation. For example, you might move it to /usr/local:
 
 bash
-Copy code
+
 sudo mv code-server-x.x.x /usr/local/code-server
 Create a Symbolic Link:
 Create a symbolic link to make it easier to manage and update code-server:
 
 bash
-Copy code
+
 sudo ln -s /usr/local/code-server/code-server /usr/local/bin/code-server
 Configure code-server (Optional):
 You can create a configuration file if you want to customize code-server. Create a file named ~/.config/code-server/config.yaml and add your configuration settings:
 
 bash
-Copy code
+
 mkdir -p ~/.config/code-server
 touch ~/.config/code-server/config.yaml
 Edit ~/.config/code-server/config.yaml with your preferred text editor.
@@ -2187,7 +2187,7 @@ Start code-server:
 Run the following command to start code-server:
 
 bash
-Copy code
+
 code-server
 This will start code-server, and you'll see output indicating that the server is running. By default, it will be accessible on http://127.0.0.1:8080. You can access it using a web browser.
 
@@ -2231,14 +2231,14 @@ Assuming you've installed code-server in the previous steps, you can configure i
 Open the code-server configuration file:
 
 bash
-Copy code
+
 nano ~/.config/code-server/config.yaml
 If the file doesn't exist, create it.
 
 Add or modify the following lines in the configuration file to specify the desired port:
 
 yaml
-Copy code
+
 bind-addr: 0.0.0.0:8080  # Change 8080 to the port you opened
 auth: password  # Optional: You might want to set up authentication
 password: your_password  # Optional: Set a secure password
@@ -2247,7 +2247,7 @@ Save the changes.
 Restart code-server:
 
 bash
-Copy code
+
 pkill -f code-server  # Stop the existing code-server process
 code-server            # Start code-server with the updated configuration
 Now, you should be able to access code-server externally by navigating to http://<your-server-ip>:8080 in a web browser. If you've set up authentication, you'll be prompted to enter the password you configured. If you're running it locally, you can use http://127.0.0.1:8080.
@@ -2271,7 +2271,7 @@ Amazon Elastic Beanstalk environments use Nginx as the default web server. You c
 Create a file named .ebextensions/nginx/conf.d/proxy.conf in your project with the following content:
 
 nginx
-Copy code
+
 location /code-server/ {
     proxy_pass http://127.0.0.1:8080/;
     proxy_set_header Host $host;
@@ -2285,12 +2285,12 @@ This configuration assumes that code-server will be running on 127.0.0.1:8080. A
 Update your code-server configuration to listen on 127.0.0.1:8080. You can do this by editing your code-server configuration file:
 
 bash
-Copy code
+
 nano ~/.config/code-server/config.yaml
 Update the bind-addr to:
 
 yaml
-Copy code
+
 bind-addr: 127.0.0.1:8080
 3. Deploy Changes to Elastic Beanstalk
 Deploy the changes to your Elastic Beanstalk environment, including both the updated Nginx configuration and code-server configuration.
@@ -2299,7 +2299,7 @@ Deploy the changes to your Elastic Beanstalk environment, including both the upd
 After deployment, you should be able to access code-server by navigating to:
 
 bash
-Copy code
+
 http://accommo-env.eba-7h3qb4f3.ap-southeast-2.elasticbeanstalk.com/code-server/
 This assumes that your code-server is configured to run on the path /code-server/.
 
@@ -2321,12 +2321,12 @@ Configure code-server to Use a Base Path:
 Open the code-server configuration file:
 
 bash
-Copy code
+
 nano ~/.config/code-server/config.yaml
 Add the base parameter to specify the base path:
 
 yaml
-Copy code
+
 bind-addr: 127.0.0.1:8080
 auth: password
 password: your_password
@@ -2338,7 +2338,7 @@ Restart code-server:
 Restart code-server to apply the changes:
 
 bash
-Copy code
+
 pkill -f code-server
 code-server
 Now, code-server should be accessible under the path /code-server/ on your EC2 instance.
@@ -2348,7 +2348,7 @@ Configure Nginx on EC2 (if applicable):
 If you're using Nginx to reverse proxy to code-server, you might need to configure Nginx to reflect the base path. If you've set up a reverse proxy for code-server in Nginx, you can adjust the proxy configuration accordingly:
 
 nginx
-Copy code
+
 location /code-server/ {
     proxy_pass http://127.0.0.1:8080/;
     proxy_set_header Host $host;
@@ -2361,7 +2361,7 @@ Adjust any other relevant Nginx configuration files.
 Now, you should be able to access code-server by navigating to:
 
 bash
-Copy code
+
 http://your_ec2_ip/code-server/
 Replace your_ec2_ip with the actual IP address of your EC2 instance.
 
@@ -2390,7 +2390,7 @@ To download the latest version of code-server, you can go to the official releas
 Here's an example of how you can download the latest release using wget:
 
 bash
-Copy code
+
 # Replace the URL with the correct one from the releases page
 wget https://github.com/coder/code-server/releases/download/v4.18.0/code-server-linux-amd64.tar.gz
 Make sure to check the releases page for the most up-to-date URL and replace it in the wget command.
@@ -2408,7 +2408,7 @@ Navigate to the Code-Server Directory:
 If you know the directory where code-server is installed, you can navigate to that directory using the cd command. For example:
 
 bash
-Copy code
+
 cd /path/to/code-server
 Once you are in the correct directory, you can try running code-server again.
 
@@ -2417,7 +2417,7 @@ Check Installation Directory:
 If you are unsure where code-server is installed, you can use the find command to search for it. For example:
 
 bash
-Copy code
+
 find / -name code-server
 This command will search the entire filesystem for the code-server binary.
 
@@ -2426,7 +2426,7 @@ Specify Full Path:
 If you find the location of the code-server binary, you can specify the full path when running it. For example:
 
 bash
-Copy code
+
 /path/to/code-server/code-server
 Replace /path/to/code-server with the actual path where code-server is located.
 
@@ -2446,7 +2446,7 @@ Since the symbolic link is in a directory that is usually included in the system
 Try running the following command:
 
 bash
-Copy code
+
 code-server
 This command should now work since the symbolic link is in a directory that's part of the PATH.
 
@@ -2458,14 +2458,14 @@ how can I cheack if that folder is in the path?
 To check if a directory is in the system's PATH, you can echo the PATH variable and look for the directory in the output. Here's how you can do it:
 
 bash
-Copy code
+
 echo $PATH
 This command will display a colon-separated list of directories. If /usr/local/bin is in the PATH, you should see it in the output.
 
 If /usr/local/bin is not in the PATH, you can add it temporarily for the current session using the following command:
 
 bash
-Copy code
+
 export PATH=$PATH:/usr/local/bin
 After running this command, you should be able to run code-server from any location in your terminal.
 
@@ -2474,7 +2474,7 @@ If you want to make this change permanent, you would typically add the export co
 Here's an example of how to add the export command to the ~/.bashrc file:
 
 bash
-Copy code
+
 echo 'export PATH=$PATH:/usr/local/bin' >> ~/.bashrc
 source ~/.bashrc
 After making this change, /usr/local/bin should be in your PATH, and you should be able to run code-server from any location in your terminal.
@@ -2490,19 +2490,19 @@ It looks like the /usr/local/bin directory, which contains the symbolic link to 
 You can add it to the PATH temporarily for the current session using the following command:
 
 bash
-Copy code
+
 export PATH=$PATH:/usr/local/bin
 After running this command, try running code-server again:
 
 bash
-Copy code
+
 code-server
 If you want to make this change permanent for the current user, you would typically add the export command to your shell profile configuration file (e.g., ~/.bashrc, ~/.bash_profile, or ~/.zshrc, depending on your shell).
 
 Here's an example of how to add the export command to the ~/.bashrc file:
 
 bash
-Copy code
+
 echo 'export PATH=$PATH:/usr/local/bin' >> ~/.bashrc
 source ~/.bashrc
 After making this change, you should be able to run code-server from any location in your terminal without manually exporting the PATH each time.
@@ -2517,7 +2517,7 @@ Check if code-server Exists:
 Ensure that the code-server binary exists in the /usr/local/code-server/ directory. You can verify this by listing the contents of the directory:
 
 bash
-Copy code
+
 ls -l /usr/local/code-server/
 Confirm that code-server is present in that directory.
 
@@ -2526,7 +2526,7 @@ Verify the Symbolic Link:
 Check the symbolic link in the /usr/local/bin/ directory:
 
 bash
-Copy code
+
 ls -l /usr/local/bin/code-server
 Confirm that the symbolic link points to the correct location (/usr/local/code-server/code-server).
 
@@ -2535,7 +2535,7 @@ Try Running Full Path:
 Attempt to run code-server using the full path:
 
 bash
-Copy code
+
 /usr/local/code-server/code-server
 If this works, it indicates that the symbolic link might not be resolving correctly.
 
@@ -2544,7 +2544,7 @@ Recreate Symbolic Link:
 Remove the existing symbolic link and recreate it:
 
 bash
-Copy code
+
 rm /usr/local/bin/code-server
 ln -s /usr/local/code-server/code-server /usr/local/bin/code-server
 Then try running code-server again.
@@ -2576,19 +2576,19 @@ It looks like the code-server binary is not directly present in the /usr/local/c
 Try running the following command to execute code-server from the bin directory:
 
 bash
-Copy code
+
 /usr/local/code-server/bin/code-server
 If this works, it indicates that the code-server binary is inside the bin directory. You might need to adjust the symbolic link or your PATH accordingly.
 
 To create a symbolic link that correctly points to the code-server binary in the bin directory, you can use the following command:
 
 bash
-Copy code
+
 ln -s /usr/local/code-server/bin/code-server /usr/local/bin/code-server
 After running this command, try running code-server again:
 
 bash
-Copy code
+
 code-server
 This should now correctly reference the code-server binary in the bin directory. If you encounter any issues or if you have additional information about the directory structure or installation steps, please let me know.
 
@@ -2621,17 +2621,17 @@ Let's say you have code-server running on http://localhost:8080/, and you want t
 Install nginx (if not installed):
 
 bash
-Copy code
+
 sudo yum install nginx   # For Amazon Linux
 Create a new nginx configuration file for your proxy:
 
 bash
-Copy code
+
 sudo nano /etc/nginx/conf.d/code-server.conf
 Add the following configuration:
 
 nginx
-Copy code
+
 server {
     listen 80;
     server_name your-domain.com;
@@ -2653,14 +2653,14 @@ Save the file and exit the text editor.
 Test the nginx configuration:
 
 bash
-Copy code
+
 sudo nginx -t
 If the test is successful, you can proceed to the next step.
 
 Reload nginx to apply the changes:
 
 bash
-Copy code
+
 sudo systemctl reload nginx
 Now, you should be able to access code-server through http://your-domain.com/code-server/. Adjust the configuration according to your specific needs. If you encounter any issues or have additional requirements, feel free to provide more details, and I can assist further.
 
@@ -2677,12 +2677,12 @@ Navigate to your project directory.
 Create the necessary folders:
 
 bash
-Copy code
+
 mkdir -p .ebextensions/nginx/conf.d
 Create the proxy.conf file inside the conf.d directory:
 
 bash
-Copy code
+
 touch .ebextensions/nginx/conf.d/proxy.conf
 Now, you should be able to create the proxy.conf file within the appropriate directory structure. Afterward, you can add the necessary nginx configuration to proxy.conf for setting up the proxy as needed for your Elastic Beanstalk environment.
 
@@ -2784,14 +2784,14 @@ Make sure that the configuration for code-server is being included when nginx st
 Check for errors in nginx configuration:
 
 bash
-Copy code
+
 sudo nginx -t
 This command checks the syntax of your configuration files. If there are any errors, it will provide information about them.
 
 Restart Nginx:
 
 bash
-Copy code
+
 sudo systemctl restart nginx
 After making changes to the configuration, it's important to restart nginx for the changes to take effect.
 
@@ -2799,7 +2799,7 @@ Check Nginx Logs:
 Check the error log for any issues:
 
 bash
-Copy code
+
 sudo cat /var/log/nginx/error.log
 Look for any error messages that might indicate what the problem is.
 
@@ -2819,7 +2819,7 @@ Certainly! Based on your setup, here's an updated nginx configuration:
 /etc/nginx/nginx.conf:
 
 nginx
-Copy code
+
 user                    nginx;
 error_log               /var/log/nginx/error.log warn;
 pid                     /var/run/nginx.pid;
@@ -2865,7 +2865,7 @@ http {
 /etc/nginx/conf.d/code-server.conf:
 
 nginx
-Copy code
+
 server {
     listen 80;
     server_name _;
@@ -2894,12 +2894,12 @@ Let's make sure the code-server.conf file is included correctly. Please modify t
 Open the /etc/nginx/nginx.conf file:
 
 bash
-Copy code
+
 sudo nano /etc/nginx/nginx.conf
 Update the http block to include the code-server.conf file:
 
 nginx
-Copy code
+
 http {
     # ... (other configurations)
 
@@ -2924,12 +2924,12 @@ http {
 Make sure to save the changes (Ctrl + O, then Enter, and Ctrl + X to exit in nano) and then run the nginx configuration test again:
 
 bash
-Copy code
+
 sudo nginx -t
 If there are no syntax errors, you can restart nginx:
 
 bash
-Copy code
+
 sudo systemctl restart nginx
 This should resolve the "server directive is not allowed here" error.
 
@@ -2945,7 +2945,7 @@ Here's how you can structure it:
 
 Update /etc/nginx/conf.d/code-server.conf:
 nginx
-Copy code
+
 # /etc/nginx/conf.d/code-server.conf
 
 location /code-server/ {
@@ -2961,7 +2961,7 @@ Make sure there is no server block in this file.
 
 Update /etc/nginx/nginx.conf:
 nginx
-Copy code
+
 # /etc/nginx/nginx.conf
 
 http {
@@ -2987,12 +2987,12 @@ http {
 }
 Run the configuration test:
 bash
-Copy code
+
 sudo nginx -t
 Ensure there are no syntax errors, and if everything is fine, restart Nginx:
 
 bash
-Copy code
+
 sudo systemctl restart nginx
 This should properly include the code-server.conf without causing syntax errors.
 
@@ -3009,7 +3009,7 @@ Here's how you can structure it:
 
 Update /etc/nginx/conf.d/php-fpm.conf:
 nginx
-Copy code
+
 # /etc/nginx/conf.d/php-fpm.conf
 
 upstream php-fpm {
@@ -3019,7 +3019,7 @@ Make sure there are no other directives or blocks outside the upstream block in 
 
 Update /etc/nginx/nginx.conf:
 nginx
-Copy code
+
 # /etc/nginx/nginx.conf
 
 http {
@@ -3052,12 +3052,12 @@ http {
 }
 Run the configuration test:
 bash
-Copy code
+
 sudo nginx -t
 If the test passes without any errors, restart Nginx:
 
 bash
-Copy code
+
 sudo systemctl restart nginx
 This should resolve the "upstream" directive issue. Make sure that each configuration file (code-server.conf and php-fpm.conf) contains only the relevant directives and blocks and is included appropriately in the main nginx.conf.
 
@@ -3089,7 +3089,7 @@ If the extensions are not installed or are causing issues, try reinstalling them
 Open the Terminal in code-server and run the following commands:
 
 bash
-Copy code
+
 code-server --list-extensions
 code-server --install-extension <extension-id>
 Replace <extension-id> with the ID of the extension you want to install.
@@ -3101,7 +3101,7 @@ Ensure that the extensions' files are present in the specified paths.
 Verify the existence of the mentioned files:
 
 bash
-Copy code
+
 ls /usr/local/code-server/lib/vscode/extensions/git-base/dist/browser/extension.js
 ls /usr/local/code-server/lib/vscode/extensions/merge-conflict/dist/browser/mergeConflictMain.js
 If these files are missing, you may need to reinstall the extensions.
@@ -3121,17 +3121,17 @@ To resolve this issue, you can try reinstalling the missing extensions. If you a
 Git Extension:
 
 bash
-Copy code
+
 code-server --install-extension vscode.git
 Merge Conflict Extension:
 
 bash
-Copy code
+
 code-server --install-extension vscode.merge-conflict
 Other Extensions:
 
 bash
-Copy code
+
 # Install additional extensions as needed
 code-server --install-extension <extension-id>
 Replace <extension-id> with the ID of the extension you want to install. You can find the extension IDs on the Visual Studio Code Marketplace website.
@@ -3163,7 +3163,7 @@ Check code-server Installation: Verify that code-server is installed correctly o
 Update code-server: Ensure you are using the latest version of code-server. You can update it using:
 
 bash
-Copy code
+
 sudo npm install -g code-server@latest
 Check Firewall Settings: Make sure that there are no firewall rules blocking the connection to port 8080, which is the default port for code-server. If you have a security group or firewall settings in place, ensure they allow traffic on this port.
 
@@ -3172,7 +3172,7 @@ Check Configuration Files: Review your code-server configuration files and ensur
 Reinstall Extensions: If you have missing extensions, you can try reinstalling them. Use the following command to reinstall the Git extension:
 
 bash
-Copy code
+
 code-server --install-extension eamodio.gitlens
 Replace eamodio.gitlens with the correct extension ID for the Git extension.
 
@@ -3185,7 +3185,7 @@ To install Node.js and npm (Node Package Manager), you can follow these steps. T
 
 For Linux (Ubuntu/Debian):
 bash
-Copy code
+
 # Update package list
 sudo apt update
 
@@ -3197,7 +3197,7 @@ node -v
 npm -v
 For macOS:
 bash
-Copy code
+
 # Install Homebrew if not installed
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
@@ -3215,7 +3215,7 @@ Run the installer and follow the installation instructions.
 Using Chocolatey (if you have Chocolatey installed):
 
 bash
-Copy code
+
 # Install Node.js and npm
 choco install nodejs
 
@@ -3232,7 +3232,7 @@ I am using amazon linux
 On Amazon Linux, you can use the following commands to install Node.js and npm:
 
 bash
-Copy code
+
 # Install Node.js 14.x (LTS version) using NodeSource repository
 sudo yum install -y gcc-c++ make
 curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
@@ -3429,7 +3429,7 @@ Require stack:
 It seems like there are missing modules required by code-server. You can try reinstalling the code-server package to make sure all the dependencies are installed correctly. Here are the steps to reinstall code-server:
 
 bash
-Copy code
+
 # Uninstall code-server
 sudo npm uninstall -g code-server
 
@@ -3495,7 +3495,7 @@ http {
 To handle URLs starting with "/api/" and direct them to /var/www/html/public/index.php, you can add a location block within your server block. Here's an updated version of your nginx.conf:
 
 nginx
-Copy code
+
 user                    nginx;
 error_log               /var/log/nginx/error.log warn;
 pid                     /var/run/nginx.pid;
@@ -3596,7 +3596,7 @@ It appears there might be an issue with the PHP script not receiving the expecte
 Firstly, let's modify the index.php file to correctly retrieve the action parameter from the query string:
 
 php
-Copy code
+
 <?php
 
 header('Content-Type: application/json');
@@ -3628,7 +3628,7 @@ try {
 Now, update the Nginx configuration to handle PHP scripts correctly:
 
 nginx
-Copy code
+
 location ^~ /api/ {
     try_files $uri $uri/ /var/www/html/public/index.php$is_args$args;
     fastcgi_split_path_info ^(.+\.php)(/.+)$;
@@ -3641,7 +3641,7 @@ location ^~ /api/ {
 Make sure to reload Nginx after making these changes:
 
 bash
-Copy code
+
 sudo systemctl reload nginx
 With these adjustments, the /api/ requests should be correctly processed by the index.php file. Additionally, the die($action) statement will output the received action parameter for debugging purposes. Please check the Nginx error logs and the browser console for any additional error messages that might help identify the issue.
 
@@ -3661,7 +3661,7 @@ Absolutely, you can perform a "smoke test" to see if your index.php runs without
 Here's an updated version of your index.php file for the smoke test:
 
 php
-Copy code
+
 <?php
 
 // Set CORS headers
@@ -3761,7 +3761,7 @@ location /api/ {
 Yes, your updated Nginx configuration should correctly route requests starting with /api/ to index.php. The try_files directive in the location block is configured to first try the actual file, then the directory, and finally, if both are not found, it will route the request to /var/www/html/public/index.php$is_args$args.
 
 nginx
-Copy code
+
 location ^~ /api/ {
     try_files $uri $uri/ /var/www/html/public/index.php$is_args$args;
 }
@@ -3770,7 +3770,7 @@ This should handle URLs starting with /api/ and route them to your PHP script. T
 Make sure to reload or restart Nginx after making changes to the configuration:
 
 bash
-Copy code
+
 sudo systemctl reload nginx
 Then test accessing your URLs again to see if it correctly routes to index.php.
 
@@ -3782,7 +3782,7 @@ In Nginx, $args is a variable that contains the arguments in the request (everyt
 So, in the line:
 
 nginx
-Copy code
+
 try_files $uri $uri/ /var/www/html/public/index.php$is_args$args;
 $uri represents the current URI (excluding arguments),
 $uri/ is checking for the existence of a directory with the same name as the URI,
@@ -3797,7 +3797,7 @@ but does REQUEST_URI in php still contain /api/areas ?
 In the Nginx configuration you provided:
 
 nginx
-Copy code
+
 location ^~ /api/ {
     try_files $uri $uri/ /var/www/html/public/index.php$is_args$args;
 }
@@ -3825,7 +3825,7 @@ location /api/ {
 Yes, you can simplify the configuration to:
 
 nginx
-Copy code
+
 location /api/ {
     proxy_pass http://localhost/index.php$is_args$args;
     proxy_set_header Host $host;

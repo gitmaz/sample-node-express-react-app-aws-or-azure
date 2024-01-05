@@ -2,7 +2,7 @@ Save Environment Configuration:
 Use the AWS CLI to describe your Elastic Beanstalk environment and save the configuration to a file:
 
 bash
-Copy code
+
 aws elasticbeanstalk describe-configuration-settings \
   --application-name YourApplicationName \
   --environment-name YourEnvironmentName \
@@ -13,7 +13,7 @@ Terminate the Environment:
 Terminate the Elastic Beanstalk environment:
 
 bash
-Copy code
+
 aws elasticbeanstalk terminate-environment --environment-name YourEnvironmentName
 Replace YourEnvironmentName with your actual environment name.
 
@@ -21,7 +21,7 @@ Recreate the Environment:
 Recreate the Elastic Beanstalk environment using the saved configuration:
 
 bash
-Copy code
+
 aws elasticbeanstalk create-environment \
   --application-name YourApplicationName \
   --environment-name YourNewEnvironmentName \

@@ -3,7 +3,7 @@ To install Node.js and npm (Node Package Manager), you can follow these steps. T
 
 For Linux (Ubuntu/Debian):
 bash
-Copy code
+
 # Update package list
 sudo apt update
 
@@ -15,7 +15,7 @@ node -v
 npm -v
 For macOS:
 bash
-Copy code
+
 # Install Homebrew if not installed
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
@@ -33,7 +33,7 @@ Run the installer and follow the installation instructions.
 Using Chocolatey (if you have Chocolatey installed):
 
 bash
-Copy code
+
 # Install Node.js and npm
 choco install nodejs
 
@@ -50,7 +50,7 @@ I am using amazon linux
 On Amazon Linux, you can use the following commands to install Node.js and npm:
 
 bash
-Copy code
+
 # Install Node.js 14.x (LTS version) using NodeSource repository
 sudo yum install -y gcc-c++ make
 curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -

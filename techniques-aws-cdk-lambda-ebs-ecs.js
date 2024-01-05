@@ -1,3 +1,8 @@
+@installing aws cdk
+npm install -g aws-cdk
+cdk --version
+
+
 #stack.js
 
 import * as cdk from 'aws-cdk-lib';
@@ -326,8 +331,7 @@ class ElasticBeanstalkStack extends cdk.Stack {
 
 module.exports = { ElasticBeanstalkStack };
 
-#ecs stack
-
+#ecs-stack.js (CDK Stack for ECS and Lambda):
 const cdk = require('aws-cdk-lib');
 const ecs = require('aws-cdk-lib/aws-ecs');
 const sqs = require('aws-cdk-lib/aws-sqs');
@@ -367,6 +371,8 @@ class EcsLambdaStack extends cdk.Stack {
       handler: 'index.handler',
       code: lambda.Code.fromAsset('lambda-code'), // Path to your Lambda function code
       environment: {
+        ECS_CLUSTER_NAME: cluster.clusterName,
+        ECS_SERVICE_NAME: service.serviceName,
         SQS_QUEUE_URL: queue.queueUrl,
       },
     });
@@ -383,6 +389,7 @@ class EcsLambdaStack extends cdk.Stack {
 }
 
 module.exports = { EcsLambdaStack };
+
 
 #lambda for this ecs
 const AWS = require('aws-sdk');
@@ -401,43 +408,5 @@ exports.handler = async (event, context) => {
     body: JSON.stringify({ message: 'Lambda executed successfully.' }),
   };
 };
-
-#ecs stack updated
-
-const cdk = require('aws-cdk-lib');
-const ecs = require('aws-cdk-lib/aws-ecs');
-const sqs = require('aws-cdk-lib/aws-sqs');
-
-class EcsStack extends cdk.Stack {
-  constructor(scope, id, props) {
-    super(scope, id, props);
-
-    // SQS Queue
-    const queue = sqs.Queue.fromQueueArn(
-      this,
-      'MyQueue',
-      'arn:aws:sqs:your-region:your-account-id:MyQueue'
-    );
-
-    // ECS Cluster
-    const cluster = new ecs.Cluster(this, 'MyCluster');
-
-    // ECS Task Definition
-    const taskDefinition = new ecs.FargateTaskDefinition(this, 'MyTaskDefinition');
-
-    // Define your container details here
-    const container = taskDefinition.addContainer('MyContainer', {
-      image: ecs.ContainerImage.fromRegistry('your-docker-image'),
-    });
-
-    // ECS Service
-    const service = new ecs.FargateService(this, 'MyService', {
-      cluster,
-      taskDefinition,
-    });
-  }
-}
-
-module.exports = { EcsStack };
 
 

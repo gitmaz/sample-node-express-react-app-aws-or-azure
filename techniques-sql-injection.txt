@@ -8,7 +8,7 @@ Instead of directly embedding user input into SQL queries, use parameterized sta
 Example using the mysql library for MySQL:
 
 javascript
-Copy code
+
 const mysql = require('mysql');
 const connection = mysql.createConnection({ ... });
 
@@ -23,7 +23,7 @@ Consider using an ORM library like Sequelize or TypeORM, which abstracts SQL que
 Example using Sequelize:
 
 javascript
-Copy code
+
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize({ ... });
 

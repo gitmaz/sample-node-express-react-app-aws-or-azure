@@ -9,14 +9,14 @@ Install the AWS SDK:
 You'll need the AWS SDK for Node.js to interact with S3. Install it in your Node.js project:
 
 bash
-Copy code
+
 npm install aws-sdk
 Configure AWS SDK:
 
 You should configure the AWS SDK with your IAM user's credentials and the AWS region where your S3 bucket is located. You can do this by creating an AWS configuration file or directly in your Node.js code. Here's an example of configuring the SDK in your code:
 
 javascript
-Copy code
+
 const AWS = require('aws-sdk');
 
 AWS.config.update({
@@ -33,7 +33,7 @@ Upload users.json to S3:
 You can use the AWS SDK's putObject method to upload the users.json file to your S3 bucket. Here's an example:
 
 javascript
-Copy code
+
 const params = {
   Bucket: 'your-bucket-name', // Replace with your S3 bucket name
   Key: 'users.json', // The desired key (file name) in your S3 bucket

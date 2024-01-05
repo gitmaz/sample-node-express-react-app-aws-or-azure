@@ -1,7 +1,7 @@
 To add another server block with a different document root for serving a React frontend app on port 8000, you can modify your nginx.conf file as follows:
 
 nginx
-Copy code
+
 user                    nginx;
 error_log               /var/log/nginx/error.log warn;
 pid                     /var/run/nginx.pid;
@@ -71,7 +71,7 @@ http {
 Replace /var/www/html/frontend/public with the actual path to your React app. After making these changes, restart Nginx for the configuration to take effect:
 
 bash
-Copy code
+
 sudo systemctl restart nginx
 Now, your React app should be accessible at http://your-server-ip:8000 or http://localhost:8000. Adjust the server_name directive if you have a specific domain or IP for your React app.
 
@@ -84,31 +84,31 @@ To automatically run npm run serve for your React app as soon as Linux loads, yo
 Install pm2 globally:
 
 bash
-Copy code
+
 sudo npm install -g pm2
 Navigate to your React app's directory:
 
 bash
-Copy code
+
 cd /var/www/html/frontend
 Run your React app with pm2:
 
 bash
-Copy code
+
 pm2 start npm --name "frontend" -- start
 This assumes that your npm start script is configured in your package.json file. If your start script is different, adjust the command accordingly.
 
 Save the current pm2 configuration:
 
 bash
-Copy code
+
 pm2 save
 This ensures that pm2 will restart your React app after a system reboot.
 
 Enable startup script to start pm2 on system boot:
 
 bash
-Copy code
+
 pm2 startup
 Follow the instructions provided by pm2. It may ask you to run a specific command based on your operating system.
 
@@ -117,17 +117,17 @@ Now, whenever your system starts, pm2 will automatically start your React app us
 To view logs:
 
 bash
-Copy code
+
 pm2 logs frontend
 To restart the app:
 
 bash
-Copy code
+
 pm2 restart frontend
 To stop the app:
 
 bash
-Copy code
+
 pm2 stop frontend
 Make sure to replace "frontend" with your desired process name if you choose a different one.
 
@@ -138,31 +138,31 @@ To automatically run npm run serve for your React app as soon as Linux loads, yo
 Install pm2 globally:
 
 bash
-Copy code
+
 sudo npm install -g pm2
 Navigate to your React app's directory:
 
 bash
-Copy code
+
 cd /var/www/html/frontend
 Run your React app with pm2:
 
 bash
-Copy code
+
 pm2 start npm --name "frontend" -- start
 This assumes that your npm start script is configured in your package.json file. If your start script is different, adjust the command accordingly.
 
 Save the current pm2 configuration:
 
 bash
-Copy code
+
 pm2 save
 This ensures that pm2 will restart your React app after a system reboot.
 
 Enable startup script to start pm2 on system boot:
 
 bash
-Copy code
+
 pm2 startup
 Follow the instructions provided by pm2. It may ask you to run a specific command based on your operating system.
 
@@ -171,17 +171,17 @@ Now, whenever your system starts, pm2 will automatically start your React app us
 To view logs:
 
 bash
-Copy code
+
 pm2 logs frontend
 To restart the app:
 
 bash
-Copy code
+
 pm2 restart frontend
 To stop the app:
 
 bash
-Copy code
+
 pm2 stop frontend
 Make sure to replace "frontend" with your desired process name if you choose a different one.
 

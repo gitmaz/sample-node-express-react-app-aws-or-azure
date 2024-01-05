@@ -4,7 +4,7 @@ Create an Event Emitter:
 First, you need to create an event emitter instance to emit and handle events. You can create this emitter in a new file, let's call it eventEmitter.js:
 
 javascript
-Copy code
+
 // eventEmitter.js
 const EventEmitter = require('events');
 const userEvents = new EventEmitter();
@@ -14,7 +14,7 @@ Emit Events When a New User is Created:
 Modify your userController.js to emit an event when a new user is created. For example:
 
 javascript
-Copy code
+
 // controllers/userController.js
 const userModel = require('../models/userModel');
 const userEvents = require('../eventEmitter'); // Import the event emitter
@@ -40,7 +40,7 @@ Listen for the Event in Another Part of Your App:
 You can have other parts of your application, like a notification system or logging system, listen for the 'userCreated' event and respond to it. Here's an example:
 
 javascript
-Copy code
+
 // Some other part of your application, e.g., notificationService.js
 const userEvents = require('../eventEmitter'); // Import the event emitter
 

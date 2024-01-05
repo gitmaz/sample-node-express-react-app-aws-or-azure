@@ -8,7 +8,7 @@ Generate and include anti-CSRF tokens in forms and requests. These tokens should
 Example using the csurf middleware in Express:
 
 javascript
-Copy code
+
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
 
@@ -27,7 +27,7 @@ Set the "SameSite" cookie attribute to "Strict" or "Lax" on session cookies. Thi
 Example using the express-session middleware:
 
 javascript
-Copy code
+
 const session = require('express-session');
 
 app.use(session({
@@ -57,7 +57,7 @@ Security Headers:
 
 Use security-focused middleware like Helmet to set various HTTP security headers, including "Content-Security-Policy" and "X-Content-Type-Options".
 javascript
-Copy code
+
 const helmet = require('helmet');
 app.use(helmet());
 Regular Security Audits:

@@ -1,0 +1,16 @@
+npm install -g json-server
+
+create a db.json file with content (applicants is an example list):
+
+{
+  "applicants": [
+      {
+           "name": "Joe",
+           "email": "joe@example.com",
+           "position": "Software Developer"
+      }
+  ]
+}
+
+
+json-server --watch db.json --port 3001

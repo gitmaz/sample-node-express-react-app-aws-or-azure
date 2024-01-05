@@ -3,7 +3,7 @@ how can I configure nginx to use /public/index.php when a url path is like http:
 To configure Nginx to use /public/index.php for URLs with a path starting with /api/, you'll need to define a location block in your Nginx configuration. Here's an example configuration:
 
 nginx
-Copy code
+
 server {
     listen 80;
     server_name _; #accomo-env.eba-7h3qb4f3.ap-southeast-2.elasticbeanstalk.com;
@@ -59,7 +59,7 @@ Set the root directive to the path where your application is located.
 After making these changes, remember to restart Nginx for the configuration to take effect:
 
 bash
-Copy code
+
 sudo service nginx restart
 This configuration assumes that your PHP-FPM socket file is located at /var/run/php/php7.4-fpm.sock. Update it according to your PHP version.
 

@@ -103,7 +103,7 @@ Azure CLI:
 You can use the Azure CLI to scale your App Service manually. For example, to scale to 3 instances, run the following command:
 
 bash
-Copy code
+
 az appservice plan update --name <app-service-plan-name> --resource-group <resource-group-name> --number-of-workers 3
 Auto Scaling:
 
@@ -119,7 +119,7 @@ Azure CLI:
 You can use the Azure CLI to configure auto-scaling rules. For example, to configure CPU-based auto-scaling to add instances when CPU usage is above 75% and remove instances when CPU usage is below 25%, you can run the following command:
 
 bash
-Copy code
+
 az monitor autoscale create --resource-group <resource-group-name> --resource <app-service-plan-name> --resource-type Microsoft.Web/serverfarms --name <autoscale-rule-name> --min-count 1 --max-count 10 --count 3 --condition "Percentage CPU > 75 avg 5m"
 With auto-scaling rules in place, Azure App Service will automatically adjust the number of instances based on the defined metrics.
 

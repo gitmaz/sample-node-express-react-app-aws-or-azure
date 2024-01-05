@@ -7,13 +7,13 @@ Update Your System:
 Ensure your system is up-to-date by running:
 
 bash
-Copy code
+
 sudo yum update
 Install Node.js and npm:
 Run the following command to install Node.js and npm:
 
 bash
-Copy code
+
 sudo yum install -y nodejs npm
 The -y flag automatically answers "yes" to the confirmation prompt.
 
@@ -21,7 +21,7 @@ Verify Installation:
 Check if Node.js and npm are installed successfully:
 
 bash
-Copy code
+
 node -v
 npm -v
 These commands should display the Node.js and npm versions, confirming that the installation was successful.
