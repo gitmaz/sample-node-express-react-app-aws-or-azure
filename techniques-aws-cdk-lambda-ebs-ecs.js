@@ -484,3 +484,50 @@ targets: [new targets.LambdaFunction(handler)],
 }
 }
 
+
+
+@how to run php cli instance:
+
+    I successfully deployed the stack . how can now I login to this php cli container (spin up one container and be able to log into its console an do command line php stuff)
+ChatGPT
+To interact with a container running in an ECS Fargate service, you typically do not log in directly to the container like you would with a traditional server or a container running on an ECS EC2 launch type. Instead, you can use the AWS Systems Manager (SSM) Session Manager to access the command line of the running container.
+
+    Here are the steps:
+
+    Enable Session Manager for your ECS Task:
+    Ensure that AWS Systems Manager is enabled for your ECS tasks. You can do this by adding the AWS-UpdateSSMAgent managed policy to your ECS task execution role.
+
+    Update ECS Task Definition with SSM Agent:
+    Modify your ECS task definition to include the AWS Systems Manager Agent. This can be done by adding an extra container to your task definition.
+
+    typescript
+Copy code
+const ssmAgentContainer = taskDefinition.addContainer('ssm-agent', {
+  image: ecs.ContainerImage.fromRegistry('amazonlinux'),
+  essential: true,
+  command: ['sh', '-c', 'amazon-linux-extras enable ssm-agent && yum install -y amazon-ssm-agent'],
+  user: 'root',
+});
+Update ECS Service to Allow SSM:
+    Modify your ECS service definition to allow connections from AWS Systems Manager. Add a security group rule to allow inbound traffic on port 443 from the Systems Manager service IP ranges.
+
+    typescript
+Copy code
+const service = new ecs.FargateService(this, 'MyService', {
+  cluster,
+  taskDefinition,
+  securityGroups: [/* Your existing security groups */, allowSSMServiceInboundRule],
+});
+allowSSMServiceInboundRule is an example security group rule that allows inbound traffic from the Systems Manager service IP ranges on port 443. You'll need to replace this with your actual security group setup.
+
+Access the Container using Session Manager:
+    Once your task is running, you can use AWS Systems Manager Session Manager to access the command line of your container. You can do this using the AWS CLI:
+
+    bash
+Copy code
+aws ssm start-session --target <your-container-instance-id>
+Replace <your-container-instance-id> with the EC2 instance ID where your container is running. You can find this ID in the ECS console or through the AWS CLI.
+
+    After starting the session, you'll be in the command line of your container and can run PHP commands or interact with the container as needed.
+
+Remember to follow AWS security best practices and restrict access appropriately when using Systems Manager Session Manager. Additionally, make sure that you have the AWS CLI installed and configured with the necessary permissions for AWS Systems Manager.
