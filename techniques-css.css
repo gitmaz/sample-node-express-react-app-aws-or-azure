@@ -1,0 +1,36 @@
+/* Flexbox */
+When working with Flexbox, you can style the child items (flex items) within a flex container using various properties. Here are some common properties you might use:
+
+Flex Container (Parent) Properties:
+
+display: flex;: This property is applied to the parent container to enable Flexbox.
+flex-direction: Defines the main axis of the flex container. It can be row, row-reverse, column, or column-reverse.
+justify-content: Aligns items along the main axis. Values include flex-start, flex-end, center, space-between, and space-around.
+align-items: Aligns items along the cross axis. Values include flex-start, flex-end, center, baseline, and stretch.
+Flex Item (Child) Properties:
+
+flex: A shorthand property for flex-grow, flex-shrink, and flex-basis. Example: flex: 1 1 auto;.
+align-self: Overrides the align-items value for a specific flex item. Values are the same as align-items.
+order: Controls the order of the flex items. By default, all items have an order of 0.
+Here's a simple example:
+
+css
+Copy code
+/* Flex Container (Parent) Styles */
+.flex-container {
+  display: flex;
+  flex-direction: row; /* or column, depending on your layout */
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Flex Item (Child) Styles */
+.flex-item {
+  flex: 1; /* This item will grow and shrink equally */
+  max-width: 300px; /* Example: Set a maximum width for the flex item */
+  align-self: flex-start; /* Override alignment for this item */
+  order: 2; /* Change the order of this item */
+}
+In this example, .flex-container is the parent, and .flex-item is a child. Adjust these styles based on your specific layout requirements. You can also use these properties within a media query for responsive designs.
+
+Remember to replace the class names (flex-container and flex-item) with the actual class names you are using in your HTML.
