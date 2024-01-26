@@ -126,3 +126,14 @@ WHERE RowNum BETWEEN (@PageSize * (@PageNumber - 1) + 1) AND (@PageSize * @PageN
     </tbody>
 </table>
 
+--- method 4
+WITH OriginalResultSet AS (
+    SELECT column1, column2, ...
+    FROM table1
+    JOIN table2 ON table1.column = table2.column
+    JOIN table3 ON table2.column = table3.column
+    -- Add other joins, conditions, and ordering as needed
+)
+SELECT *,
+       (SELECT COUNT(*) FROM OriginalResultSet) AS TotalRecords
+FROM OriginalResultSet;
