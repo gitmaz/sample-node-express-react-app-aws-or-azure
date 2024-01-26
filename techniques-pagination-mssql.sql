@@ -18,6 +18,9 @@ SELECT @MaxPageCount AS MaxPages;
 
 
 
+
+
+
 --method two: return the pagination max pages on the same sql.
 
 
@@ -89,3 +92,37 @@ WHERE RowNum BETWEEN (@PageSize * (@PageNumber - 1) + 1) AND (@PageSize * @PageN
 <!-- Access the result sets -->
 <cfset totalRecords = myQuery.TotalRecords>
 <cfset maxPageCount = myQuery.MaxPageCount>
+
+--example how to show on html table
+<cfquery name="myQuery" datasource="yourDataSource">
+   -- Your complex query with multiple joins
+   WITH OriginalResultSet AS (
+       SELECT column1, column2, ...
+       FROM table1
+       JOIN table2 ON table1.column = table2.column
+       JOIN table3 ON table2.column = table3.column
+       -- Add other joins, conditions, and ordering as needed
+   )
+   SELECT * FROM OriginalResultSet;
+</cfquery>
+
+<!-- Display the records in an HTML table -->
+<table border="1">
+    <thead>
+        <tr>
+            <th>Column1</th>
+            <th>Column2</th>
+            <!-- Add other column headers as needed -->
+        </tr>
+    </thead>
+    <tbody>
+        <cfoutput query="myQuery">
+            <tr>
+                <td>#myQuery.column1#</td>
+                <td>#myQuery.column2#</td>
+                <!-- Add other columns as needed -->
+            </tr>
+        </cfoutput>
+    </tbody>
+</table>
+
