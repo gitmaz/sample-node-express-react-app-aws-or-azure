@@ -64,5 +64,28 @@ SELECT
 FROM PagedResultSet
 WHERE RowNum BETWEEN (@PageSize * (@PageNumber - 1) + 1) AND (@PageSize * @PageNumber);
 
+-- usages in cf
 
 
+<cfquery name="myQuery" datasource="yourDataSource">
+   DECLARE @PageSize INT = /* your desired page size */;
+   DECLARE @TotalRecords INT;
+
+   -- Your complex query with multiple joins
+   WITH OriginalResultSet AS (
+       SELECT column1, column2, ...
+       FROM table1
+       JOIN table2 ON table1.column = table2.column
+       JOIN table3 ON table2.column = table3.column
+       -- Add other joins, conditions, and ordering as needed
+   )
+   SELECT @TotalRecords = COUNT(*) FROM OriginalResultSet;
+
+   DECLARE @MaxPageCount INT = CEILING(CONVERT(FLOAT, @TotalRecords) / @PageSize);
+
+   SELECT @TotalRecords AS TotalRecords, @MaxPageCount AS MaxPageCount;
+</cfquery>
+
+<!-- Access the result sets -->
+<cfset totalRecords = myQuery.TotalRecords>
+<cfset maxPageCount = myQuery.MaxPageCount>
